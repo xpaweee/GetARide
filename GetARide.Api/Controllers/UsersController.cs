@@ -1,3 +1,4 @@
+using GetARide.Infrastructure.Commands.User;
 using GetARide.Infrastructure.DTO;
 using GetARide.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,12 @@ namespace GetARide.Api.Controllers {
         [HttpGet("{email}")]
         public UserDto Get(string email)
             => _userService.GetUser(email);
+
+        [HttpPost("")]
+        public void Post([FromBody]CreateUser request)
+        {
+            _userService.Register(request.Email,request.Username,request.Password);
+        }
 
     }
 }

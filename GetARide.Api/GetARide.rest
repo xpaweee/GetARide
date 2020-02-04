@@ -1,0 +1,16 @@
+@api = http://localhost:5000
+@userId = 00000000-0000-0000-0000-000000000000
+
+POST {{api}}/users
+Content-Type: application/json
+
+{
+  "email": "test@mail.com",
+  "password": "secret",
+  "username": "user10"
+}
+
+
+
+
+

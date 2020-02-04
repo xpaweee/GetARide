@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using GetARide.Core.Domain;
 using GetARide.Core.Repositories;
 using GetARide.Infrastructure.DTO;
@@ -8,24 +9,18 @@ namespace GetARide.Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly IMapper _mapper;
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public UserDto GetUser(string email)
         {
            var user = _userRepository.GetUser(email);
            if(user is { })
-           {
-                return new UserDto
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Email = user.Email.ToLowerInvariant()
-
-                };
-            }
+                return _mapper.Map<User,UserDto>(user);
 
             throw new Exception("User already exists."); 
           

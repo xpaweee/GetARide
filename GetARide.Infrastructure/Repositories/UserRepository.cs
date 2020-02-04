@@ -28,7 +28,7 @@ namespace GetARide.Infrastructure.Repositories
         
 
         public User GetUser(string email)
-            => _users.Single(x => x.Email.ToLowerInvariant() == email.ToLowerInvariant());
+            => _users.SingleOrDefault(x => x.Email.ToLowerInvariant() == email.ToLowerInvariant());
        
         public void Remove(Guid id)
         {
