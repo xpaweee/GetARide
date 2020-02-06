@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using GetARide.Core.Domain;
 using GetARide.Core.Repositories;
 
@@ -15,30 +16,28 @@ namespace GetARide.Infrastructure.Repositories
             new User("User3@gmail.com","testowy3","password3","salt3")
         };
 
-        public void Add(User user)
+        public async Task AddAsync(User user)
+            => await Task.FromResult(_users.Add(user));
+
+        public  async Task<IEnumerable<User>> GetAllAsync()
+            =>  await Task.FromResult(_users);
+
+        public async Task<User> GetUserAsync(Guid id)
+            => await Task.FromResult(_users.SingleOrDefault(x => x.Id == id));
+
+        public async Task<User> GetUserAsync(string email)
+             => await Task.FromResult(_users.SingleOrDefault(x => x.Email == email));
+
+        public async Task RemoveAsync(Guid id)
         {
-            _users.Add(user);
-        }
-
-        public IEnumerable<User> GetAll()
-            => _users;
-
-        public User GetUser(Guid id)
-            => _users.Single(x => x.Id == id);
-        
-
-        public User GetUser(string email)
-            => _users.SingleOrDefault(x => x.Email.ToLowerInvariant() == email.ToLowerInvariant());
-       
-        public void Remove(Guid id)
-        {
-            var user = GetUser(id);
+            var user = await GetUserAsync(id);
             _users.Remove(user);
+            await Task.CompletedTask;
         }
 
-        public void Update(User user)
+        public async Task UpdateAsync(User user)
         {
-            throw new NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }

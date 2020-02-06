@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using GetARide.Infrastructure.Commands.User;
 using GetARide.Infrastructure.DTO;
 using GetARide.Infrastructure.Services;
@@ -17,13 +18,13 @@ namespace GetARide.Api.Controllers {
         }
 
         [HttpGet("{email}")]
-        public UserDto Get(string email)
-            => _userService.GetUser(email);
+        public async Task<UserDto> Get(string email)
+            => await _userService.GetUserAsync(email);
 
         [HttpPost("")]
-        public void Post([FromBody]CreateUser request)
+        public async Task Post([FromBody]CreateUser request)
         {
-            _userService.Register(request.Email,request.Username,request.Password);
+            await _userService.RegisterAsync(request.Email,request.Username,request.Password);
         }
 
     }

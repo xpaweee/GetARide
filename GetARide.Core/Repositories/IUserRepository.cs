@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using GetARide.Core.Domain;
 
 namespace GetARide.Core.Repositories
 {
     public interface IUserRepository
     {
-         User GetUser(Guid id);
-         User GetUser(string email);
-         void Add(User user);
-         void Remove(Guid id);
-         void Update(User user);
-         IEnumerable<User> GetAll();
+         Task<User> GetUserAsync(Guid id);
+         Task<User> GetUserAsync(string email);
+         Task AddAsync(User user);
+         Task RemoveAsync(Guid id);
+         Task UpdateAsync(User user);
+         Task<IEnumerable<User>> GetAllAsync();
     }
 }
