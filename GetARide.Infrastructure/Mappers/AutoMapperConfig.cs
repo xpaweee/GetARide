@@ -11,6 +11,7 @@ namespace GetARide.Infrastructure.Mappers
             {
                 cfg.CreateMap<User,UserDto>();
                 cfg.CreateMap<Driver,DriverDto>();
+                cfg.CreateMap<Vehicle,VehicleDto>();
             })
             .CreateMapper();
         
