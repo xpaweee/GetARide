@@ -4,16 +4,17 @@ using GetARide.Infrastructure.DTO;
 using GetARide.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GetARide.Api.Controllers {
+namespace GetARide.Api.Controllers
+{
     [ApiController]
-    [Route ("[controller]")]
-    public class UsersController {
-
+    [Route("[controller]")]
+    public class UsersController : ApiControllerBase
+    {
 
         private readonly IUserService _userService;
-        public UsersController (IUserService userService) {
+        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        {
             _userService = userService;
-            
 
         }
 
@@ -21,11 +22,20 @@ namespace GetARide.Api.Controllers {
         public async Task<UserDto> Get(string email)
             => await _userService.GetUserAsync(email);
 
+
+
         [HttpPost("")]
         public async Task Post([FromBody]CreateUser request)
         {
-            await _userService.RegisterAsync(request.Email,request.Username,request.Password);
+            await CommandDispatcher.DispatchAsync(request);
         }
+
+
+        // [HttpPost("")]
+        // public async Task Post([FromBody]CreateUser request)
+        // {
+        //     await _userService.RegisterAsync(request.Email,request.Username,request.Password);
+        // }
 
     }
 }
