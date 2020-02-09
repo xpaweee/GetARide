@@ -5,7 +5,7 @@ using GetARide.Core.Domain;
 
 namespace GetARide.Core.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository
     {
          Task<User> GetUserAsync(Guid id);
          Task<User> GetUserAsync(string email);

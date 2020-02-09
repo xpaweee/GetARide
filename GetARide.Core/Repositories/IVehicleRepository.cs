@@ -4,7 +4,7 @@ using GetARide.Core.Domain;
 
 namespace GetARide.Core.Repositories
 {
-    public interface IVehicleRepository
+    public interface IVehicleRepository : IRepository
     {
          Task<Vehicle> GetVehicleAsync(string name);
          Task AddVehicleAsync(string name, int seats);

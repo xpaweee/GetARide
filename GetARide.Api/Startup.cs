@@ -32,15 +32,17 @@ namespace GetARide.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IUserService,UserService>();
-            services.AddScoped<IUserRepository,UserRepository>();
-            services.AddSingleton(AutoMapperConfig.Initialize());
+            // services.AddScoped<IUserService,UserService>();
+            // services.AddScoped<IUserRepository,UserRepository>();
+            // services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddOptions();
         }
         public void ConfigureContainer(ContainerBuilder builder)
         {
           // Register your own things directly with Autofac, like:
-          builder.RegisterModule(new CommandModule());
+        //   builder.RegisterModule(new CommandModule());
+        //   builder.RegisterModule(new SettingsModule(Configuration));
+          builder.RegisterModule(new ContainerModule(Configuration));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
