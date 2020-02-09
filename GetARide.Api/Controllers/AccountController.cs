@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GetARide.Api.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class AccountController : ApiControllerBase
     {
 
@@ -16,7 +18,6 @@ namespace GetARide.Api.Controllers
         }
 
         [HttpPut]
-        [Route("password")]
         public async Task<IActionResult> Put([FromBody]ChangeUserPassword command)
         {
             await CommandDispatcher.DispatchAsync(command);

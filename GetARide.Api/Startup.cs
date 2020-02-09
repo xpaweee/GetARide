@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using GetARide.Core.Repositories;
 using GetARide.Infrastructure.IoC.Modules;
 using GetARide.Infrastructure.Mappers;
@@ -22,8 +21,6 @@ namespace GetARide.Api
 {
     public class Startup
     {
-        public IConfigurationRoot configuration{get;set;}
-        public IContainer ApplicationContainer{get;set;}
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,25 +29,22 @@ namespace GetARide.Api
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.AddScoped<IUserService,UserService>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddOptions();
-            
-
-            var builder = new ContainerBuilder();
-            builder.Populate(services);
-            builder.RegisterModule<CommandModule>();
-            ApplicationContainer = builder.Build();
-            return new AutofacServiceProvider(ApplicationContainer);
-
+        }
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+          // Register your own things directly with Autofac, like:
+          builder.RegisterModule(new CommandModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime appLifeTime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -59,7 +53,6 @@ namespace GetARide.Api
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
-            appLifeTime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
