@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using GetARide.Infrastructure.Commands.User;
 using GetARide.Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GetARide.Api.Controllers
@@ -11,10 +12,28 @@ namespace GetARide.Api.Controllers
     {
 
         private readonly IUserService _userService;
-        public AccountController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        private readonly IJwtHandler _jwtHandler;
+        public AccountController(IUserService userService, ICommandDispatcher commandDispatcher, IJwtHandler jwtHandler) : base(commandDispatcher)
         {
             _userService = userService;
+            _jwtHandler = jwtHandler;
 
+        }
+
+        [HttpGet]
+        [Route("token")]
+        public IActionResult GetToken()
+        {
+            var token = _jwtHandler.CreateToken("usertest@email.com","user");
+            return Json(token);
+        }
+        
+        [HttpGet]
+        [Authorize]
+        [Route("auth")]
+        public IActionResult GetAuth()
+        {
+            return Content("Auth");
         }
 
         [HttpPut]

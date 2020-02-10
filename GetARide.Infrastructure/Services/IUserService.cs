@@ -7,5 +7,6 @@ namespace GetARide.Infrastructure.Services
     {
          Task <UserDto> GetUserAsync(string email);
          Task RegisterAsync(string email,string username,string password);
+         Task LoginAsync(string email, string password);
     }
 }

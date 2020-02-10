@@ -8,7 +8,7 @@ namespace GetARide.Infrastructure.IoC.Modules
     {
          protected override void Load(Autofac.ContainerBuilder builder)
         {
-            var assembly = typeof(RepositoryModule)
+            var assembly = typeof(ServiceModule)
                 .GetTypeInfo()
                 .Assembly;
 
@@ -16,6 +16,14 @@ namespace GetARide.Infrastructure.IoC.Modules
                 .Where(x => x.IsAssignableTo<IService>())
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<Encrypter>()
+                .As<IEncrypter>()
+                .SingleInstance();
+
+              builder.RegisterType<JwtHandler>()
+                .As<IJwtHandler>()
+                .SingleInstance();
         } 
     }
 }

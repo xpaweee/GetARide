@@ -3,6 +3,7 @@ using GetARide.Infrastructure.Commands.User;
 using GetARide.Infrastructure.DTO;
 using GetARide.Infrastructure.Services;
 using GetARide.Infrastructure.Settings;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GetARide.Api.Controllers
@@ -19,6 +20,7 @@ namespace GetARide.Api.Controllers
 
         }
 
+        //[Authorize]
         [HttpGet("{email}")]
         public async Task<UserDto> Get(string email)
             => await _userService.GetUserAsync(email);

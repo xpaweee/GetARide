@@ -92,3 +92,4 @@ C:\Users\krzys\source\repos\GetARide\GetARide.Tests.EndToEnd\obj\Debug\netcoreap
 C:\Users\krzys\source\repos\GetARide\GetARide.Tests.EndToEnd\obj\Debug\netcoreapp3.1\GetARide.Tests.EndToEnd.csproj.CopyComplete
 C:\Users\krzys\source\repos\GetARide\GetARide.Tests.EndToEnd\obj\Debug\netcoreapp3.1\GetARide.Tests.EndToEnd.dll
 C:\Users\krzys\source\repos\GetARide\GetARide.Tests.EndToEnd\obj\Debug\netcoreapp3.1\GetARide.Tests.EndToEnd.pdb
+C:\Users\krzys\source\repos\GetARide\GetARide.Tests.EndToEnd\bin\Debug\netcoreapp3.1\Autofac.dll

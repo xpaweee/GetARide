@@ -1,6 +1,8 @@
 @api = http://localhost:5000
 @userId = 00000000-0000-0000-0000-000000000000
 
+@accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VydGVzdEBlbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwianRpIjoiZjlhMzk1MWItNjgyYi00OTk3LWI1YmItOWM2OTIyYWRhNzZhIiwiaWF0IjoxMzI4OTEwMjA5MzkyLCJuYmYiOjE1ODEzNzEwMDksImV4cCI6MTU4MTM3MTMwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAwIn0.VRGXVOnFS1ql5685s_MxLBOx1piA9pbEF4UawYzhdbw"
+
 POST {{api}}/users
 Content-Type: application/json
 
@@ -9,6 +11,19 @@ Content-Type: application/json
   "password": "secret",
   "username": "user10"
 }
+
+### GET me
+POST {{api}}/users/test
+
+### GET me
+GET {{api}}/account/token
+
+
+### GET me
+POST {{api}}/users/test
+Authorization: Bearer {{accessToken}}
+
+
 
 
 
