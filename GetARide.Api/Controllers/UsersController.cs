@@ -3,6 +3,7 @@ using GetARide.Infrastructure.Commands.User;
 using GetARide.Infrastructure.DTO;
 using GetARide.Infrastructure.Services;
 using GetARide.Infrastructure.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,10 +21,12 @@ namespace GetARide.Api.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{email}")]
         public async Task<UserDto> Get(string email)
-            => await _userService.GetUserAsync(email);
+        {
+          return  await _userService.GetUserAsync(email);
+        }
 
 
 
@@ -32,13 +35,6 @@ namespace GetARide.Api.Controllers
         {
             await CommandDispatcher.DispatchAsync(request);
         }
-
-
-        // [HttpPost("")]
-        // public async Task Post([FromBody]CreateUser request)
-        // {
-        //     await _userService.RegisterAsync(request.Email,request.Username,request.Password);
-        // }
 
     }
 }

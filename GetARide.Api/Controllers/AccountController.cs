@@ -19,12 +19,11 @@ namespace GetARide.Api.Controllers
             _jwtHandler = jwtHandler;
 
         }
-
         [HttpGet]
         [Route("token")]
         public IActionResult GetToken()
         {
-            var token = _jwtHandler.CreateToken("usertest@email.com","user");
+            var token = _jwtHandler.CreateToken("test", "user");
             return Json(token);
         }
         

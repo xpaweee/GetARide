@@ -29,7 +29,7 @@ namespace GetARide.Infrastructure.Services
             };
 
             
-            var expires = now.AddMinutes(_settings.ExpiryMinute);
+            var expires = now.AddMinutes(360);
             var singingCredentails = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key)),SecurityAlgorithms.HmacSha256);
 
             var jwt = new JwtSecurityToken(
