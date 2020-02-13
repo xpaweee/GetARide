@@ -28,7 +28,6 @@ namespace GetARide.Api.Controllers
         }
         
         [HttpGet]
-        [Authorize]
         [Route("auth")]
         public IActionResult GetAuth()
         {

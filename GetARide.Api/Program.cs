@@ -22,7 +22,7 @@ namespace GetARide.Api
             .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseKestrel();
+                    //webBuilder.UseKestrel();
                     webBuilder.UseStartup<Startup>();
                 });
     }

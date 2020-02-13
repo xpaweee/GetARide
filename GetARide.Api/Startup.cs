@@ -10,9 +10,7 @@ using GetARide.Infrastructure.Mappers;
 using GetARide.Infrastructure.Repositories;
 using GetARide.Infrastructure.Services;
 using GetARide.Infrastructure.Settings;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,34 +36,30 @@ namespace GetARide.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            IdentityModelEventSource.ShowPII = true;
-            var appSettingsSection = Configuration.GetSection("Jwt");
+            services.AddCors();
+            services.AddControllers();
+            var appSettingsSection = Configuration.GetSection("JWT");
             services.Configure<JwtSettings>(appSettingsSection);
             var appSettings = appSettingsSection.Get<JwtSettings>();
-            services.AddControllers();
-            services.AddOptions();
 
+            // services.AddOptions();
             services.AddAuthentication(x => 
             {
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
-               
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
             })
             .AddJwtBearer(x=>
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
-                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuerSigningKey = true,
-                    ValidateIssuer = true,
-                    ValidateLifetime = true,
-                    ValidAudience = appSettings.Issuer,
-                    ValidIssuer = appSettings.Issuer,
-                    ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.Key))
+                    ValidateIssuerSigningKey = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(appSettings.Key)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
                 };
 
             }
@@ -79,19 +73,18 @@ namespace GetARide.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+    
             app.UseRouting();
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseAuthentication();
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
-
             });
+
         }
     }
 }

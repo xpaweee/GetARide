@@ -21,7 +21,7 @@ namespace GetARide.Api.Controllers
 
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         [HttpGet("{email}")]
         public async Task<UserDto> Get(string email)
         {

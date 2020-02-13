@@ -1,7 +1,7 @@
 @api = http://localhost:5000
 @userId = 00000000-0000-0000-0000-000000000000
 
-@accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsImp0aSI6IjViMDhjMTgwLWMzNGEtNDJlNC04YWQ1LTJlNzZiMzg3OTIxOSIsImlhdCI6MTMyODk5NjUxMjcwOCwibmJmIjoxNTgxNDU3MzEyLCJleHAiOjE1ODE0Nzg5MTIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEifQ.eepNDMc9uGBuh89-484Di-8ekAfEA9aW22x4nFjzFbk"
+@accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsImp0aSI6IjlkMzEyZDkzLWY1MmItNGQwOC1iOGM3LWUwNzMxMjdhMmU4NiIsImlhdCI6MTMyOTE1NzQ5MjE0MiwibmJmIjoxMzgxNjE4MjkyLCJleHAiOjE5ODE2Mzk4OTIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NjIzNzQifQ.SYwhmSawsJwIFp6kcty4Tjs-RmZyOJnkFFsw35vWsRE"
 
 POST {{api}}/users
 Content-Type: application/json
@@ -13,14 +13,14 @@ Content-Type: application/json
 }
 
 ### GET me
-POST {{api}}/users/test
+GET {{api}}/users/test
 
 ### GET me
 GET {{api}}/account/token
 
 
 ### GET me
-POST {{api}}/users/test
+GET {{api}}/users/test
 Authorization: Bearer {{accessToken}}
 
 

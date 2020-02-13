@@ -20,7 +20,7 @@
     "GetARide.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "account/token",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
