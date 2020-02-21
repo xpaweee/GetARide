@@ -19,33 +19,32 @@ namespace GetARide.Infrastructure.Services
 
         public JwtDto CreateToken(string email, string role)
         {
-            var now = DateTime.UtcNow;
+             var now = DateTime.UtcNow;
             var claims = new Claim[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub,email),
-                new Claim(ClaimTypes.Role, role),
+                new Claim(JwtRegisteredClaimNames.Sub, email),
+                new Claim(JwtRegisteredClaimNames.UniqueName, email),
+                new Claim(ClaimTypes.Role, "admin"),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat,now.ToTimestamp().ToString(),ClaimValueTypes.Integer64)
+                new Claim(JwtRegisteredClaimNames.Iat, now.ToTimestamp().ToString())
             };
 
-            
-            var expires = now.AddMinutes(_settings.ExpiryMinute);
-            var singingCredentails = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key)),SecurityAlgorithms.HmacSha256);
-
+            var expires = now.AddMinutes(60);
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key)),SecurityAlgorithms.HmacSha256);
             var jwt = new JwtSecurityToken(
                 issuer: _settings.Issuer,
                 claims: claims,
                 notBefore: now,
                 expires: expires,
-                signingCredentials: singingCredentails
-            );
-            var token = new JwtSecurityTokenHandler().WriteToken(jwt);
+                signingCredentials: signingCredentials
+                );
+                var token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return new JwtDto
-            {
-                Token = token,
-                Expiry = expires.ToTimestamp()
-            };
+                return new JwtDto
+                {
+                    Token = token,
+                    Expiry = expires.ToTimestamp()
+                };
         }
     }
 }

@@ -37,35 +37,48 @@ namespace GetARide.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            IdentityModelEventSource.ShowPII = true;
-
-
-            var appSettingsSection = Configuration.GetSection("JwtSettings");
-            services.Configure<JwtSettings>(appSettingsSection);
-            
-            var appSettings = appSettingsSection.Get<JwtSettings>();
-           
-            
+             IdentityModelEventSource.ShowPII = true;
+             
+            services.AddAuthorization();
+            services.AddMemoryCache();
             services.AddControllers();
-            // services.AddScoped<IUserService,UserService>();
-            // services.AddScoped<IUserRepository,UserRepository>();
-            // services.AddSingleton(AutoMapperConfig.Initialize());
-            services.AddOptions();
-            services.AddAuthentication(x => 
+            //services.AddTransient   <- nowy obiekt za każdym razem
+            //services.AddScoped   <- pojedyncze per żądanie http
+            // services.AddScoped<IEventRepository,EventRepository>();
+            services.AddScoped<IUserRepository,UserRepository>();
+            services.AddScoped<IUserService,UserService>();
+            services.AddSingleton<IJwtHandler,JwtHandler>();
+            services.AddSingleton(AutoMapperConfig.Initialize());
+
+           
+
+            // configure jwt authentication
+            var appSettingsSection = Configuration.GetSection("jwt");
+            services.Configure<JwtSettings>(appSettingsSection);
+            var appSettings = appSettingsSection.Get<JwtSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Key);
+            services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(x=>
+            .AddJwtBearer(x =>
             {
-                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
+                    // ValidateIssuerSigningKey = true,
+                    // IssuerSigningKey = new SymmetricSecurityKey(key),
+                    // ValidateIssuer = false,
+                    // ValidateAudience = false
                     ValidIssuer = appSettings.Issuer,
                     ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(appSettings.Key))
+                    IssuerSigningKey = new SymmetricSecurityKey(key)       
+
                 };
-            }
-            );
+            });
+
         }
         public void ConfigureContainer(ContainerBuilder builder)
         {
@@ -79,16 +92,21 @@ namespace GetARide.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            var jwtSettings = app.ApplicationServices.GetServices<JwtSettings>();
-
-            if (env.IsDevelopment())
+           if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            //this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
             app.UseHttpsRedirection();
+
+           //app.UseErrorHandler();
+
             app.UseRouting();
-            app.UseAuthorization();
+
+            app.UseAuthentication();
             
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

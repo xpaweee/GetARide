@@ -19,11 +19,10 @@ namespace GetARide.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseKestrel();
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                 .UseServiceProviderFactory(new AutofacServiceProviderFactory());
     }
 }

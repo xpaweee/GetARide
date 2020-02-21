@@ -20,10 +20,10 @@ namespace GetARide.Api.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("{email}")]
-        public async Task<UserDto> Get(string email)
-            => await _userService.GetUserAsync(email);
+        public async Task<IActionResult> Get(string email)
+            => Json(await _userService.GetUserAsync(email));
 
 
 

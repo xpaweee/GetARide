@@ -23,6 +23,7 @@ namespace GetARide.Infrastructure.Services
         {
             var user = await _userRepository.GetUserAsync(email);
             return _mapper.Map<User, UserDto>(user);
+           
         }
 
         public async Task LoginAsync(string email, string password)
