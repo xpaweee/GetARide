@@ -8,7 +8,15 @@ namespace GetARide.Infrastructure.Repositories
 {
     public class VehicleRepository : IVehicleRepository
     {
-        private static HashSet<Vehicle> _vehicles = new HashSet<Vehicle>();
+             private static ISet<Vehicle> _vehicles = new HashSet<Vehicle>
+        {
+            new Vehicle("TestName",10,"Brand 1"),
+            new Vehicle("TestName2",10,"Brand 2"),
+            new Vehicle("TestName3",10,"Brand 3"),
+            new Vehicle("TestName4",10,"Brand 4"),
+
+        };
+
         public async Task<IEnumerable<Vehicle>> GetAllVehiclesAsync()
             => await Task.FromResult(_vehicles);
 

@@ -39,7 +39,8 @@ namespace GetARide.Api
         {
              IdentityModelEventSource.ShowPII = true;
              
-            services.AddAuthorization();
+            services.AddAuthorization(x=> x.AddPolicy("admin", p => p.RequireRole("admin")));
+            // services.AddAuthorization()
             services.AddMemoryCache();
             services.AddControllers();
             //services.AddTransient   <- nowy obiekt za każdym razem
@@ -47,8 +48,10 @@ namespace GetARide.Api
             // services.AddScoped<IEventRepository,EventRepository>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<IUserService,UserService>();
+            services.AddScoped<IDriverService,DriverService>();
             services.AddSingleton<IJwtHandler,JwtHandler>();
             services.AddSingleton(AutoMapperConfig.Initialize());
+            services.AddMemoryCache();
 
            
 

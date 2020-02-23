@@ -12,6 +12,6 @@ namespace GetARide.Core.Repositories
          Task AddAsync(User user);
          Task RemoveAsync(Guid id);
          Task UpdateAsync(User user);
-         Task<IEnumerable<User>> GetAllAsync();
+         Task<IEnumerable<User>> BrowseAsync();
     }
 }

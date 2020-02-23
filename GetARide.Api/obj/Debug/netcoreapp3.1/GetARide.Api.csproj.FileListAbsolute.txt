@@ -36,3 +36,8 @@ C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Micros
 C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll

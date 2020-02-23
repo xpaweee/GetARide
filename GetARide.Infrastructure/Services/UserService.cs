@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using GetARide.Core.Domain;
@@ -25,14 +26,19 @@ namespace GetARide.Infrastructure.Services
             return _mapper.Map<User, UserDto>(user);
            
         }
+            public async Task<IEnumerable<UserDto>> BrowseAsync()
+        {
+            var drivers = await _userRepository.BrowseAsync();
+
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(drivers);
+        }
 
         public async Task LoginAsync(string email, string password)
         {
             var user = await _userRepository.GetUserAsync(email);
             if (user is { })
                 throw new Exception($"Invalid credentials");
-            var salt = _encrypter.GetSalt(password);
-            var hash = _encrypter.GetHash(password,salt);
+            var hash = _encrypter.GetHash(password,user.Salt);
             if(user.Password == hash)
                 return;
             throw new Exception($"Invalid credentials");

@@ -19,8 +19,14 @@ namespace GetARide.Api.Controllers
             _userService = userService;
 
         }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var users = await _userService.BrowseAsync();
+            return Json(users);
+        }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet("{email}")]
         public async Task<IActionResult> Get(string email)
             => Json(await _userService.GetUserAsync(email));

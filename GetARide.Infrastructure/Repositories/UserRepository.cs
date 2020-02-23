@@ -19,7 +19,7 @@ namespace GetARide.Infrastructure.Repositories
         public async Task AddAsync(User user)
             => await Task.FromResult(_users.Add(user));
 
-        public  async Task<IEnumerable<User>> GetAllAsync()
+        public  async Task<IEnumerable<User>> BrowseAsync()
             =>  await Task.FromResult(_users);
 
         public async Task<User> GetUserAsync(Guid id)

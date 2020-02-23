@@ -5,7 +5,7 @@ namespace GetARide.Infrastructure.DTO
 {
     public class DriverDto
     {
-        public Guid UserId{get;protected set;}
-        public Vehicle Vehicle{get;protected set;}
+        public Guid UserId{get; set;}
+        public string Name{get;set;}
     }
 }
