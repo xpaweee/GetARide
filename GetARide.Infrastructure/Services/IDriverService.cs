@@ -7,9 +7,9 @@ namespace GetARide.Infrastructure.Services
 {
     public interface IDriverService : IService
     {
-         Task<DriverDto> Get(Guid UserId);
+         Task<DriverDetailsDto> Get(Guid UserId);
          Task CreateAsync(Guid userId);
-         Task SetVehicle(Guid userId,string brand, string name, int seats);
+         Task SetVehicle(Guid userId,string brand, string name);
         Task<IEnumerable<DriverDto>> BrowseAsync();
     }
 }

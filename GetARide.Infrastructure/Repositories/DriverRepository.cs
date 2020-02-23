@@ -11,7 +11,8 @@ namespace GetARide.Infrastructure.Repositories
     {
          private static ISet<Driver> _drivers = new HashSet<Driver>
         {
-            new Driver(new User("test","test","test","test"))
+            new Driver(new User("test","test","test","test")),
+            
  
 
         };

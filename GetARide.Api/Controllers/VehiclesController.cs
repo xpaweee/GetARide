@@ -1,29 +1,25 @@
 using System.Threading.Tasks;
 using GetARide.Infrastructure.Commands.User;
-using GetARide.Infrastructure.Commands.Vehicle;
+using GetARide.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GetARide.Api.Controllers
 {
     [ApiController]
-    [Route("controller")]
+    [Route("[controller]")]
     public class VehiclesController : ApiControllerBase
     {
-        public VehiclesController(ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+        private readonly IVehicleProvider _vehicleProvider;
+        public VehiclesController(ICommandDispatcher commandDispatcher,IVehicleProvider vehicleProvider) : base(commandDispatcher)
         {
-
+            _vehicleProvider = vehicleProvider;
         }
 
+        public async Task<IActionResult> Get()
+        {
+            var vehicles = await _vehicleProvider.BrowseAsync();
 
-         [HttpPost("")]
-         public async Task Post([FromBody]AddNewVehicle command)
-         {
-            await CommandDispatcher.DispatchAsync(command);
-         }
-
-
-
-
-        
+            return Json(vehicles);
+        }
     }
 }

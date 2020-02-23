@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using GetARide.Infrastructure.Commands.User;
 using GetARide.Infrastructure.Services;
@@ -21,6 +22,16 @@ namespace GetARide.Api.Controllers
             var drivers = await _driverService.BrowseAsync();
 
             return Json(drivers);
+        }
+        [HttpGet]
+        [Route("{userId}")]
+        public async Task<IActionResult> Get(Guid userId)
+        {
+            var driver = await _driverService.Get(userId);
+            if(driver is null)
+                return NotFound();
+
+            return Json(driver);
         }
     }
 }
