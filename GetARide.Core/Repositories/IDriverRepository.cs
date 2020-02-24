@@ -13,5 +13,6 @@ namespace GetARide.Core.Repositories
 
          Task Add(Driver driver);
          Task Update(Driver driver);
+         Task DeleteAsync(Driver driver);
     }
 }

@@ -21,7 +21,7 @@ namespace GetARide.Core.Domain
             Distance = distance;
         }
 
-        public static Route Create(string name, Node start, Node end)
-            => new Route();//new Route(name, start, end);
+        public static Route Create(string name, Node start, Node end, double distance)
+            => new Route(name, start, end,distance);
     }
 }

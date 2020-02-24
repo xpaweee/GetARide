@@ -9,11 +9,13 @@ namespace GetARide.Infrastructure.Services
     public class DriverRouteService : IDriverRouteService
     {
         private readonly IDriverRepository _driverRepository;
+        private readonly IRootManager _routeManager;
         private readonly IMapper _mapper;
-        public DriverRouteService(IDriverRepository driverRepository,
+        public DriverRouteService(IDriverRepository driverRepository, IRootManager routeManager,
                                   IMapper mapper)
         {
             _driverRepository = driverRepository;
+            _routeManager = routeManager;
             _mapper = mapper;
         }
         public async Task AddAsync(Guid userId, string name, double startLatitude, double startLongitude, double endLatitude, double endLongitude)
@@ -21,9 +23,12 @@ namespace GetARide.Infrastructure.Services
             var driver = await _driverRepository.Get(userId);
             if(driver is null)
                 throw new Exception($"Driver with user id: {userId} was not found");
-            var start = Node.Create("Start address",startLongitude,startLatitude);
-            var end = Node.Create("End address",endLongitude,endLatitude);
-            driver.AddRoute(name,start,end);
+            var startAddres = await _routeManager.GetAddressAsync(startLatitude,startLongitude);
+            var endAddres = await _routeManager.GetAddressAsync(endLatitude,endLongitude);
+            var start = Node.Create(startAddres,startLongitude,startLatitude);
+            var end = Node.Create(endAddres,endLongitude,endLatitude);
+            var distance = _routeManager.CalculateLength(startLatitude,startLongitude,endLatitude,endLongitude);
+            driver.AddRoute(name,start,end,distance);
             await _driverRepository.Update(driver);
         }
 

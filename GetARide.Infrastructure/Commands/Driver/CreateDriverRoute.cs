@@ -3,9 +3,8 @@ using GetARide.Infrastructure.Commands.User;
 
 namespace GetARide.Infrastructure.Commands.Driver
 {
-    public class CreateDriverRoute : ICommand
+    public class CreateDriverRoute : AuthenticatedCommandBase
     {
-        public Guid UserId{get;set;}
         public string Name{get;set;}
         public double StartLatitude{get;set;}
         public double StartLongtitude{get;set;}

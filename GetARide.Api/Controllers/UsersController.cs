@@ -36,7 +36,7 @@ namespace GetARide.Api.Controllers
         [HttpPost("")]
         public async Task Post([FromBody]CreateUser request)
         {
-            await CommandDispatcher.DispatchAsync(request);
+            await DispatchAsync(request);
         }
 
 

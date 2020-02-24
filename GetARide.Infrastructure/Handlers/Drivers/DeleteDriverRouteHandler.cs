@@ -8,7 +8,7 @@ namespace GetARide.Infrastructure.Handlers.Drivers
 {
     public class DeleteDriverRouteHandler : ICommandHandler<DeleteDriverRoute>
     {
-              public readonly IDriverService _driverService;
+        public readonly IDriverService _driverService;
         public DeleteDriverRouteHandler (IDriverService driverService) {
             _driverService = driverService;
         }

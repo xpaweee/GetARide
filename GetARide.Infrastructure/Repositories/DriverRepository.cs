@@ -36,7 +36,10 @@ namespace GetARide.Infrastructure.Repositories
         public async Task<Driver> Get(Guid UserId)
             => await Task.FromResult(_drivers.Single( x => x.UserId == UserId));
 
- 
-
+        public async Task DeleteAsync(Driver driver)
+        {
+            _drivers.Remove(driver);
+            await Task.CompletedTask;
+        }
     }
 }

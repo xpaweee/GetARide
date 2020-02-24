@@ -3,9 +3,8 @@ using GetARide.Infrastructure.Commands.User;
 
 namespace GetARide.Infrastructure.Commands.Driver
 {
-    public class DeleteDriverRoute : ICommand
+    public class DeleteDriverRoute : AuthenticatedCommandBase
     {
-        public Guid UserId {get;set;}
         public string Name{get;set;}
     }
 }

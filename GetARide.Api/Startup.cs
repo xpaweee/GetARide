@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using GetARide.Api.Framework;
 using GetARide.Core.Repositories;
 using GetARide.Infrastructure.IoC.Modules;
 using GetARide.Infrastructure.Mappers;
@@ -101,7 +102,10 @@ namespace GetARide.Api
             }
             //this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
             app.UseHttpsRedirection();
-
+            
+            app.UseMyExceptionHandler();
+            
+            
            //app.UseErrorHandler();
 
             app.UseRouting();

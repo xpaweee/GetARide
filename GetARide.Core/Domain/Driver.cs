@@ -11,6 +11,7 @@ namespace GetARide.Core.Domain
 
         public Guid UserId { get; protected set; }
         public string Name { get; protected set; }
+        public double Distance { get; protected set; }
         public Vehicle Vehicle { get; protected set; }
         public DateTime UpdatedAt { get; private set; }
         public IEnumerable<Route> Routes
@@ -32,7 +33,7 @@ namespace GetARide.Core.Domain
         {
             UserId = user.Id;
             Name = user.Username;
-            AddRoute("Testowa sciezka",new Node("Startowy adres",2,2),new Node("Koncowy adres",4,4));
+            AddRoute("Testowa sciezka",new Node("Startowy adres",2,2),new Node("Koncowy adres",4,4),new Random().Next(1000,100000));
         }
 
         public void SetVehicle(Vehicle vehicle)
@@ -41,14 +42,16 @@ namespace GetARide.Core.Domain
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void AddRoute(string name, Node start, Node end)
+        public void AddRoute(string name, Node start, Node end, double distance)
         {
             var route = Routes.SingleOrDefault(x => x.Name == name);
             if(route != null)
             {
                 throw new Exception($"Route with name: '{name}' already exists for driver: {Name}.");
             }
-            _routes.Add(Route.Create(name, start, end));
+            if(distance < 0)
+                throw new Exception($"Route can not have negative distance.");
+            _routes.Add(Route.Create(name, start, end,distance));
             UpdatedAt = DateTime.UtcNow;
         }
 

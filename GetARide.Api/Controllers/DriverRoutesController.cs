@@ -18,9 +18,10 @@ namespace GetARide.Api.Controllers
         //[Authorize]
         public async Task<IActionResult> Post([FromBody] CreateDriverRoute command)
         {
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
             return NoContent();
         }
+        
         [HttpDelete("{name}")]
         //[Authorize]
         public async Task<IActionResult> Post(string name)
@@ -29,7 +30,7 @@ namespace GetARide.Api.Controllers
             {
                 Name = name
             };
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
             return NoContent();
         }
     }

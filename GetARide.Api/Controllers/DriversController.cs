@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using GetARide.Infrastructure.Commands.Driver;
 using GetARide.Infrastructure.Commands.User;
 using GetARide.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ namespace GetARide.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            //throw new Exception("ups");
             var drivers = await _driverService.BrowseAsync();
 
             return Json(drivers);
@@ -32,6 +34,20 @@ namespace GetARide.Api.Controllers
                 return NotFound();
 
             return Json(driver);
+        }
+
+        [HttpDelete("me")]
+        public async Task<IActionResult> Post()
+        {
+            await DispatchAsync(new DeleteDriver());
+            return NoContent();
+        }
+
+        [HttpPut("me")]
+        public async Task<IActionResult> Put([FromBody] UpdateDriver command)
+        {
+            await DispatchAsync(command);
+            return NoContent();
         }
     }
 }

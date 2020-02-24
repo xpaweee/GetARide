@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using GetARide.Infrastructure.Commands.User;
 using GetARide.Infrastructure.Services;
@@ -24,7 +25,7 @@ namespace GetARide.Api.Controllers
         [Route("token")]
         public IActionResult GetToken()
         {
-            var token = _jwtHandler.CreateToken("usertest@email.com","user");
+            var token = _jwtHandler.CreateToken(UserId,"user");
             return Json(token);
         }
         
@@ -39,7 +40,7 @@ namespace GetARide.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody]ChangeUserPassword command)
         {
-            await CommandDispatcher.DispatchAsync(command);
+            await DispatchAsync(command);
             return NoContent();
         }
     }
