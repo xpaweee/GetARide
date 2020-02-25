@@ -5,6 +5,7 @@ using AutoMapper;
 using GetARide.Core.Domain;
 using GetARide.Core.Repositories;
 using GetARide.Infrastructure.DTO;
+using GetARide.Infrastructure.Exceptions;
 
 namespace GetARide.Infrastructure.Services
 {
@@ -36,23 +37,23 @@ namespace GetARide.Infrastructure.Services
         public async Task LoginAsync(string email, string password)
         {
             var user = await _userRepository.GetUserAsync(email);
-            if (user is { })
-                throw new Exception($"Invalid credentials");
+            if (user == null)
+                throw new ServiceException(Exceptions.ErrorCodes.InvalidCredentials,"Invalid credentials");
             var hash = _encrypter.GetHash(password,user.Salt);
             if(user.Password == hash)
                 return;
-            throw new Exception($"Invalid credentials");
+            throw new ServiceException(Exceptions.ErrorCodes.InvalidCredentials,$"Invalid credentials");
         }
 
         public async Task RegisterAsync(string email, string username, string password)
         {
             var user = await _userRepository.GetUserAsync(email);
             if (user is { })
-                throw new Exception($"User with email: '{email}' already exists.");
+                throw new ServiceException(Exceptions.ErrorCodes.EmailInUser,$"User with email: '{email}' already exists.");
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password,salt);
-            user = new User(email, username, hash, salt);
+            user = new User(Guid.NewGuid(),email, username, "admin",hash, salt);
             await _userRepository.AddAsync(user);
         }
     }

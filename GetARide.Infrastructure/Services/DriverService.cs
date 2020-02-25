@@ -5,6 +5,7 @@ using AutoMapper;
 using GetARide.Core.Domain;
 using GetARide.Core.Repositories;
 using GetARide.Infrastructure.DTO;
+using GetARide.Infrastructure.Exceptions;
 using GetARide.Infrastructure.Extensions;
 
 namespace GetARide.Infrastructure.Services
@@ -38,7 +39,7 @@ namespace GetARide.Infrastructure.Services
             
             var driver = await _driverRepository.GetOrFailAsync(userId);
             if(driver is {} )
-                throw new Exception($"Driver with id: {userId} was not found");
+                throw new ServiceException(Exceptions.ErrorCodes.DriverNotFound,$"Driver with id: {userId} was not found");
             driver = new Driver(user);
             await _driverRepository.Add(driver);
             

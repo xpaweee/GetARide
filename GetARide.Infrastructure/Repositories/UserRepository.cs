@@ -11,9 +11,9 @@ namespace GetARide.Infrastructure.Repositories
     {
         private static ISet<User> _users = new HashSet<User>
         {
-            new User("test","testowy","password","salt"),
-            new User("User2@gmail.com","testowy2","password2","salt2"),
-            new User("User3@gmail.com","testowy3","password3","salt3")
+            new User(Guid.NewGuid(),"test","testowy","admin","password","salt"),
+            new User(Guid.NewGuid(),"User2@gmail.com","admin","testowy2","password2","salt2"),
+            new User(Guid.NewGuid(),"User3@gmail.com","admin","testowy3","password3","salt3")
         };
 
         public async Task AddAsync(User user)
