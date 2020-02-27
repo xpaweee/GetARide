@@ -8,6 +8,7 @@ using GetARide.Api.Framework;
 using GetARide.Core.Repositories;
 using GetARide.Infrastructure.IoC.Modules;
 using GetARide.Infrastructure.Mappers;
+using GetARide.Infrastructure.Mongo;
 using GetARide.Infrastructure.Repositories;
 using GetARide.Infrastructure.Services;
 using GetARide.Infrastructure.Settings;
@@ -53,7 +54,7 @@ namespace GetARide.Api
             services.AddSingleton<IJwtHandler,JwtHandler>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddMemoryCache();
-
+            MongoConfigurator.Initialize();
            
 
             // configure jwt authentication

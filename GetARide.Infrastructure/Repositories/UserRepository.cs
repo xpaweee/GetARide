@@ -7,7 +7,7 @@ using GetARide.Core.Repositories;
 
 namespace GetARide.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository, IMongoRepository 
     {
         private static ISet<User> _users = new HashSet<User>
         {

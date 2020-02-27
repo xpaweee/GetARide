@@ -22,6 +22,7 @@ namespace GetARide.Infrastructure.IoC.Modules
             builder.RegisterModule<CommandModule>();
             builder.RegisterModule(new SettingsModule(_configuration));
             builder.RegisterModule<RepositoryModule>();
+            builder.RegisterModule<MongoModule>();
             builder.RegisterModule<ServiceModule>();
         }
     }

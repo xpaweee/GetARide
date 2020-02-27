@@ -41,3 +41,9 @@ C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Micros
 C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\DnsClient.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\MongoDB.Bson.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\MongoDB.Driver.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\MongoDB.Driver.Core.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\MongoDB.Libmongocrypt.dll
+C:\Users\krzys\source\repos\GetARide\GetARide.Api\bin\Debug\netcoreapp3.1\SharpCompress.dll
