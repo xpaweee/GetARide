@@ -22,9 +22,12 @@ namespace GetARide.Infrastructure.Services
                 
         }
 
-        private byte[] GetBytes(string salt)
+        private byte[] GetBytes(string value)
         {
-            throw new NotImplementedException();
+            var bytes = new byte[value.Length*sizeof(char)];
+            Buffer.BlockCopy(value.ToCharArray(), 0, bytes, 0, bytes.Length);
+
+            return bytes;
         }
 
         public string GetSalt(string value)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Autofac;
 using GetARide.Api.Framework;
 using GetARide.Core.Repositories;
+using GetARide.Infrastructure.EF;
 using GetARide.Infrastructure.IoC.Modules;
 using GetARide.Infrastructure.Mappers;
 using GetARide.Infrastructure.Mongo;
@@ -54,6 +55,9 @@ namespace GetARide.Api
             services.AddSingleton<IJwtHandler,JwtHandler>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddMemoryCache();
+            services.AddEntityFrameworkSqlServer()
+                .AddEntityFrameworkInMemoryDatabase()
+                .AddDbContext<GetARideContext>();
             MongoConfigurator.Initialize();
            
 

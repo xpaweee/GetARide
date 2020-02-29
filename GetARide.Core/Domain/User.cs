@@ -34,11 +34,11 @@ namespace GetARide.Core.Domain
         
         public void SetUsername(string username) 
         {
-            if(!NameRegex.IsMatch(username))
-            {
-                throw new DomainException(ErrorCodes.InvalidUsername, 
-                    "Username is invalid.");
-            }
+            // if(!NameRegex.IsMatch(username))
+            // {
+            //     throw new DomainException(ErrorCodes.InvalidUsername, 
+            //         "Username is invalid.");
+            // }
 
             if (String.IsNullOrEmpty(username))
             {

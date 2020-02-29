@@ -24,6 +24,7 @@ namespace GetARide.Infrastructure.IoC.Modules
             builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<MongoModule>();
             builder.RegisterModule<ServiceModule>();
+            builder.RegisterModule<SqlModule>();
         }
     }
 }

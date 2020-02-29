@@ -3,6 +3,7 @@ using GetARide.Infrastructure.Settings;
 using GetARide.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using GetARide.Infrastructure.Mongo;
+using GetARide.Infrastructure.EF;
 
 namespace GetARide.Infrastructure.IoC.Modules
 {
@@ -23,6 +24,8 @@ namespace GetARide.Infrastructure.IoC.Modules
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>())
                 .SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<MongoSettings>())
+                .SingleInstance();
+            builder.RegisterInstance(_configuration.GetSettings<SqlSettings>())
                 .SingleInstance();
             
         }
